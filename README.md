@@ -36,3 +36,5 @@ Couples on date nights
 🙅 No registration required for booking
 
 📝 Detailed movie information and ratings
+📬 Contact Created by Meem 🚀 For questions or suggestions, feel free to reach out!
+
