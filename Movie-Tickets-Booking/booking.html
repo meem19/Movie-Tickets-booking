@@ -1,0 +1,368 @@
+<!-- 
+    MOVIE BOOKING PAGE
+    This page handles the movie booking functionality including:
+    - Displaying movie details from the selected movie
+    - Seat selection interface
+    - Booking summary and checkout
+    
+    Dependencies:
+    - Bootstrap 5.3.0 (CSS/JS)
+    - Font Awesome 6.0.0
+    - Custom CSS (assets/css/style.css)
+    - Movie data (assets/js/movie-data.js)
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieFlix - Book Movie Tickets Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">MovieFlix</a>
+               
+                    <a href="index.html" class="home">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="signin.html" class="btn btn-outline">Sign In</a>
+                    <a href="signup.html" class="btn">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Booking Section -->
+    <div class="booking-container">
+        <div class="movie-booking-card">
+            <div class="row g-4">
+                <!-- Movie Poster Column -->
+                <div class="col-md-4">
+                    <div class="movie-poster-container">
+                        <img src="https://via.placeholder.com/300x450/000000/ffffff?text=Movie+Poster" alt="Movie Poster" class="movie-poster" id="moviePoster">
+                    </div>
+                </div>
+                
+                <!-- Movie Details Column -->
+                <div class="col-md-8">
+                    <div class="movie-details">
+                        <h1 class="movie-title" id="movieTitle">Movie Title</h1>
+                        
+                        <div class="movie-meta">
+                            <span class="rating" id="movieRating">
+                                <i class="fas fa-star"></i> 8.5/10
+                            </span>
+                            <span class="duration" id="movieDuration">
+                                <i class="fas fa-clock"></i> 2h 28m
+                            </span>
+                            <span class="genre" id="movieGenre">
+                                <i class="fas fa-film"></i> Action, Adventure, Sci-Fi
+                            </span>
+                        </div>
+                        
+                        <div class="movie-description" id="movieDescription">
+                            A group of intergalactic criminals must work together to stop a fanatical warrior from taking control of the galaxy.
+                        </div>
+                        
+                        <div class="movie-info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Release Date:</span>
+                                <span class="info-value" id="movieReleaseDate">May 5, 2023</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Director:</span>
+                                <span class="info-value" id="movieDirector">James Gunn</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Cast:</span>
+                                <span class="info-value" id="movieCast">Chris Pratt, Zoe Saldana, Dave Bautista</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Language:</span>
+                                <span class="info-value" id="movieLanguage">English</span>
+                            </div>
+                        </div>
+
+                        <!-- Booking Form -->
+                        <div class="booking-form mt-4">
+                            <h3>Book Your Tickets</h3>
+                            <form id="bookingForm">
+                                <div class="form-group">
+                                    <label for="showtime">Select Showtime</label>
+                                    <select id="showtime" class="form-control" required>
+                                        <option value="">Choose a showtime</option>
+                                        <option value="morning">Morning: 10:00 AM</option>
+                                        <option value="afternoon">Afternoon: 2:30 PM</option>
+                                        <option value="evening">Evening: 6:00 PM</option>
+                                        <option value="night">Night: 9:30 PM</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="seats">Number of Seats</label>
+                                    <input type="number" id="seats" class="form-control" min="1" max="10" value="1" readonly>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Seat Selection</label>
+                                    <div class="seat-selection-container">
+                                        <div class="screen">Screen</div>
+                                        <div class="seats-grid" id="seatsGrid">
+                                            <!-- Seats will be generated by JavaScript -->
+                                        </div>
+                                        <div class="seat-legend mt-3">
+                                            <div class="legend-item">
+                                                <div class="seat available"></div>
+                                                <span>Available</span>
+                                            </div>
+                                            <div class="legend-item">
+                                                <div class="seat selected"></div>
+                                                <span>Selected</span>
+                                            </div>
+                                            <div class="legend-item">
+                                                <div class="seat occupied"></div>
+                                                <span>Occupied</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="price-summary">
+                                    <div class="price-item">
+                                        <span>Ticket Price (x<span id="selectedSeatsCount">0</span>)</span>
+                                        <span>$<span id="ticketPrice">15.00</span></span>
+                                    </div>
+                                    <div class="price-total">
+                                        <strong>Total</strong>
+                                        <strong>$<span id="totalPrice">0.00</span></strong>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary w-100 mt-3">
+                                    Proceed to Payment
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" id="about">
+                    <h5>About MovieFlix</h5>
+                    <p>Your one-stop destination for the best movie experience.</p>
+                </div>
+                <div class="col-md-4">
+                    
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: support@movieflix.com<br>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p class="mb-0">&copy; 2023 MovieFlix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        /**
+         * DEBUGGING AND INITIALIZATION
+         * This section handles the core functionality of the booking page
+         */
+        console.log('Booking page script started');
+
+        /**
+         * Loads the movie data script dynamically
+         * @returns {Promise} Resolves when script is loaded, rejects on error
+         */
+        function loadMovieDataScript() {
+            return new Promise((resolve, reject) => {
+                console.log('Loading movie data script...');
+                const script = document.createElement('script');
+                script.src = 'assets/js/movie-data.js';
+                script.onload = () => {
+                    console.log('Movie data script loaded successfully');
+                    resolve();
+                };
+                script.onerror = (error) => {
+                    console.error('Failed to load movie data script:', error);
+                    reject(new Error(`Failed to load movie data from ${script.src}`));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        /**
+         * Initializes the seat selection interface
+         * Handles seat generation, selection, and price calculation
+         */
+        function initializeSeatSelection() {
+            const seatsGrid = document.getElementById('seatsGrid');
+            if (!seatsGrid) return;
+
+            // DOM elements
+            const seatsInput = document.getElementById('seats');
+            const selectedSeatsCount = document.getElementById('selectedSeatsCount');
+            const totalPriceElement = document.getElementById('totalPrice');
+            
+            // Pricing configuration
+            const ticketPrice = 15.00;
+            let selectedSeats = [];
+
+            /**
+             * Generates the cinema seat layout
+             * Creates VIP and standard seating sections
+             */
+            function generateSeats() {
+                // Seat configuration
+                const rows = [
+                    { letter: 'A', type: 'vip', count: 10 },
+                    { letter: 'B', type: 'vip', count: 10 },
+                    { letter: 'C', type: 'standard', count: 12 },
+                    { letter: 'D', type: 'standard', count: 12 },
+                    { letter: 'E', type: 'standard', count: 14 },
+                    { letter: 'F', type: 'standard', count: 14 },
+                    { letter: 'G', type: 'standard', count: 16 },
+                    { letter: 'H', type: 'standard', count: 16 },
+                ];
+                
+                // Generate seats for each row
+                rows.forEach(row => {
+                    const rowElement = document.createElement('div');
+                    rowElement.className = `seat-row ${row.type}`;
+                    
+                    // Add row label
+                    const rowLabel = document.createElement('div');
+                    rowLabel.className = 'row-label';
+                    rowLabel.textContent = row.letter;
+                    rowElement.appendChild(rowLabel);
+
+                    // Add seats
+                    for (let i = 1; i <= row.count; i++) {
+                        const seat = document.createElement('div');
+                        seat.className = `seat ${row.type}`;
+                        seat.dataset.seat = `${row.letter}${i}`;
+                        seat.dataset.type = row.type;
+                        seat.addEventListener('click', toggleSeat);
+                        rowElement.appendChild(seat);
+                    }
+
+                    seatsGrid.appendChild(rowElement);
+                });
+            }
+
+            // Toggle seat selection
+            function toggleSeat(e) {
+                const seat = e.target;
+                const seatNumber = seat.dataset.seat;
+                const seatType = seat.dataset.type;
+                const maxSeats = parseInt(seatsInput.getAttribute('max'));
+                
+                if (seat.classList.contains('selected')) {
+                    seat.classList.remove('selected');
+                    selectedSeats = selectedSeats.filter(s => s.seat !== seatNumber);
+                } else {
+                    if (selectedSeats.length >= maxSeats) {
+                        alert(`You can select maximum ${maxSeats} seats`);
+                        return;
+                    }
+                    seat.classList.add('selected');
+                    selectedSeats.push({
+                        seat: seatNumber,
+                        type: seatType,
+                        price: seatType === 'vip' ? 25.00 : ticketPrice
+                    });
+                }
+                
+                updateSeatCount();
+                updatePrice();
+            }
+            
+            function updateSeatCount() {
+                const count = selectedSeats.length;
+                selectedSeatsCount.textContent = count;
+                seatsInput.value = count;
+            }
+            
+            function updatePrice() {
+                const total = selectedSeats.reduce((sum, seat) => sum + seat.price, 0);
+                totalPriceElement.textContent = total.toFixed(2);
+            }
+            
+            // Initialize
+            generateSeats();
+            updateSeatCount();
+            updatePrice();
+        }
+
+        /**
+         * Main initialization function
+         * Loads movie data and initializes the page
+         */
+        async function initializePage() {
+            console.log('Initializing page...');
+            
+            try {
+                // 1. Load movie data
+                await loadMovieDataScript();
+                
+                // 2. Verify movie data is loaded
+                if (typeof movies === 'undefined') {
+                    throw new Error('Movies data not loaded');
+                }
+                
+                // 3. Load and display movie details
+                if (typeof loadMovieDetails === 'function') {
+                    console.log('Loading movie details...');
+                    loadMovieDetails();
+                } else {
+                    throw new Error('loadMovieDetails function not found');
+                }
+
+                // 4. Initialize seat selection
+                initializeSeatSelection();
+                
+            } catch (error) {
+                // Error handling and user feedback
+                console.error('Error in initializePage:', error);
+                
+                const errorElement = document.createElement('div');
+                errorElement.className = 'alert alert-danger';
+                errorElement.innerHTML = `
+                    <h4>Error Loading Movie Details</h4>
+                    <p>${error.message}</p>
+                    <p>Please check the console for more details and ensure you're accessing this page with a valid movie ID (e.g., booking.html?id=1).</p>
+                `;
+                
+                const movieDetails = document.querySelector('.movie-details');
+                if (movieDetails) {
+                    movieDetails.prepend(errorElement);
+                } else {
+                    document.body.prepend(errorElement);
+                }
+            }
+        }
+
+        // Start initialization when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            initializePage();
+        }
+    </script>
+</body>
+</html>
