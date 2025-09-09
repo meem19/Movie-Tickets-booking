@@ -2,6 +2,7 @@
 
 📖 Overview
 MovieFlix is a modern, user-friendly online movie ticket booking platform that allows users to browse movies, view showtimes, and book tickets from the comfort of their homes. The platform provides a seamless experience for movie enthusiasts to discover the latest films and secure their seats with just a few clicks.
+<img width="1893" height="1063" alt="Screenshot 2025-09-09 072140" src="https://github.com/user-attachments/assets/2823a02f-9f03-48b0-a285-8a68d8cc5bb4" />
 
 🚀 Key Features
 🎥 Movie Listings – Browse through a curated collection of the latest movies
